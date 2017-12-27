@@ -20,7 +20,12 @@ export interface IProduct {
 export class App2Component {
     
 pageTitle = 'Product page';
+showImage = false;
 
+toggleImage() : void { 
+              
+         this.showImage =! this.showImage;
+}
 products: any[] = [
         {
             "productId": 2,
