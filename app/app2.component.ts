@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {FormsModule} from '@angular/forms';
+
 export interface IProduct {
     productId: number;
     productName: string;
@@ -21,12 +23,37 @@ export class App2Component {
     
 pageTitle = 'Product page';
 showImage = false;
+filterdProduct: any[];
+_listFilter:string;
+
+get listFilter(): string {
+    return this._listFilter;
+}
+set listFilter(value:string) {
+    this._listFilter = value;
+    this.filterdProduct = this.performFilter(value);
+}
+constructor(){
+     this.filterdProduct = this.products;
+  }
+
+
+performFilter(filterBy: string): IProduct[] {
+      filterBy = filterBy.toLocaleLowerCase();
+      console.log(this.products);      
+       return this.products.filter((product: IProduct) =>
+       product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
+       
+    }	
 
 toggleImage() : void { 
               
          this.showImage =! this.showImage;
 }
-products: any[] = [
+
+
+
+products: IProduct[] = [
         {
             "productId": 2,
             "productName": "Garden Cart",
@@ -48,4 +75,6 @@ products: any[] = [
             "imageUrl": "http://localhost:8808/app/assets/images/rejoin_Hammer.jpg"
         }
     ];
+
+   // this.filterdProduct = this.products;
 }
